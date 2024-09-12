@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { string, number } from "prop-types";
 import addressType from "../../models/types/addressType";
 import { CardContent, Typography } from "@mui/material";
 
@@ -25,7 +25,7 @@ export default function CardBody({ phone, address, bizNumber }) {
 }
 
 CardBody.propTypes = {
-    phone: PropTypes.string.isRequired,
+    phone: string.isRequired,
     address: addressType.isRequired,
-    bizNumber: PropTypes.number.isRequired,
+    bizNumber: number.isRequired,
 };

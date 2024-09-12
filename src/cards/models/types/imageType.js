@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+import { string, shape } from "prop-types";
 
-const imageType = PropTypes.shape({
-    url: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
+const imageType = shape({
+    url: string.isRequired,
+    alt: string.isRequired,
 });
 export default imageType;

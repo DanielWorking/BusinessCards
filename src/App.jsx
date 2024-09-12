@@ -1,12 +1,23 @@
 import React from "react";
-// import CardsPage from "./cards/pages/CardsPage";
-import AboutPage from "./pages/AboutPage";
+import Layout from "./layout/Layout";
+import Router from "./routes/Router";
+import { BrowserRouter } from "react-router-dom";
+import CustomThemeProvider from "./providers/CustomThemeProvider";
+import SnackbarProvider from "./providers/SnackbarProvider";
+import UserProvider from "./users/providers/UserProvider";
 
 export default function App() {
     return (
-        <>
-            {/* <CardsPage /> */}
-            <AboutPage />
-        </>
+        <BrowserRouter>
+            <CustomThemeProvider>
+                <SnackbarProvider>
+                    <UserProvider>
+                        <Layout>
+                            <Router />
+                        </Layout>
+                    </UserProvider>
+                </SnackbarProvider>
+            </CustomThemeProvider>
+        </BrowserRouter>
     );
 }

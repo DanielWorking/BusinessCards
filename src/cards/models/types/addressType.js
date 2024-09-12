@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import { string, number, shape } from "prop-types";
 
-const addressType = PropTypes.shape({
-    state: PropTypes.string,
-    country: PropTypes.string.isRequired,
-    city: PropTypes.string.isRequired,
-    street: PropTypes.string.isRequired,
-    houseNumber: PropTypes.number.isRequired,
-    zip: PropTypes.number,
+const addressType = shape({
+    state: string,
+    country: string.isRequired,
+    city: string.isRequired,
+    street: string.isRequired,
+    houseNumber: number.isRequired,
+    zip: number,
 });
 export default addressType;

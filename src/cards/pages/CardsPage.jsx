@@ -1,88 +1,49 @@
+import React, { useEffect } from "react";
 import { Container } from "@mui/material";
-import React from "react";
 import PageHeader from "../../components/PageHeader";
-import Cards from "../components/Cards";
+import CardsFeedback from "../components/CardsFeedback";
+import useCards from "../hooks/useCards";
 
 export default function CardsPage() {
-    const cards = [
-        {
-            _id: "63765801e20ed868a69a62c4",
-            title: "first",
-            subtitle: "subtitle",
-            description: "testing 123",
-            phone: "050-0000000",
-            email: "test1@gmail.com",
-            web: "https://www.test1.co.il",
-            image: {
-                url: "/assets/images/business-card.jpg",
-                alt: "Business card image",
-            },
-            address: {
-                state: "",
-                country: "country",
-                city: "tel-aviv",
-                street: "Shinkin",
-                houseNumber: 3,
-                zip: 1234,
-            },
-            bizNumber: 1000000,
-            user_id: "63765801e20ed868a69a62c2",
-        },
-        {
-            _id: "63765801e20ed868a69a62c5",
-            title: "second",
-            subtitle: "subtitle",
-            description: "testing 456",
-            phone: "050-1111111",
-            email: "test2@gmail.com",
-            web: "https://www.test2.co.il",
-            image: {
-                url: "/assets/images/business-card.jpg",
-                alt: "Business card image",
-            },
-            address: {
-                state: "",
-                country: "country",
-                city: "jerusalem",
-                street: "King George",
-                houseNumber: 10,
-                zip: 5678,
-            },
-            bizNumber: 1000001,
-            user_id: "63765801e20ed868a69a62c3",
-        },
-        {
-            _id: "63765801e20ed868a69a62c6",
-            title: "third",
-            subtitle: "subtitle",
-            description: "testing 789",
-            phone: "050-2222222",
-            email: "test3@gmail.com",
-            web: "https://www.test3.co.il",
-            image: {
-                url: "/assets/images/business-card.jpg",
-                alt: "Business card image",
-            },
-            address: {
-                state: "",
-                country: "country",
-                city: "haifa",
-                street: "Herzl",
-                houseNumber: 15,
-                zip: 91011,
-            },
-            bizNumber: 1000002,
-            user_id: "63765801e20ed868a69a62c4",
-        },
-    ];
+    const { value, handleGetCards, handleDeleteCard, handleLikeCard } =
+        useCards();
+    const { isLoading, error, filteredCards } = value;
+
+    useEffect(() => {
+        console.log("Fetching cards..."); // Log before fetching
+        handleGetCards().then(() => {
+            console.log("Cards fetched and state updated"); // Log after fetching
+        });
+    }, []);
+
+    useEffect(() => {
+        console.log("Filtered cards: ", filteredCards); // Log filteredCards to see the data
+    }, [filteredCards]);
+
+    const onDeleteCard = async (cardId) => {
+        await handleDeleteCard(cardId);
+        await handleGetCards();
+    };
+
+    const onLikeCard = async (cardId) => {
+        await handleLikeCard(cardId);
+        await handleGetCards();
+    };
+
     return (
         <>
-            <Container sx={{ mt: 2 }}>
+            <Container>
                 <PageHeader
-                    title="Cards"
-                    subtitle="on this page you can find all business cards from all categories"
+                    title="Cards Page"
+                    subtitle="Here you can find business cards from all categories"
                 />
-                <Cards cards={cards} />
+                <CardsFeedback
+                    isLoading={isLoading}
+                    error={error}
+                    cards={filteredCards}
+                    onDelete={onDeleteCard}
+                    onLike={onLikeCard}
+                />
             </Container>
         </>
     );

@@ -1,30 +1,28 @@
 import * as React from "react";
-import PropTypes from "prop-types";
+import { memo } from "react";
+import { func } from "prop-types";
 import cardType from "../../models/types/cardType.js";
-import Card from "@mui/material/Card";
-import { CardActionArea } from "@mui/material";
-import CardHeaderComponent from "./CardHeaderComponent";
+import { Card, CardActionArea } from "@mui/material";
 import CardBody from "./CardBody";
 import CardActionBar from "./CardActionBar";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../../routes/routesModel.js";
+import CardHeaderComponent from "./CardHeaderComponent";
 
-export default function CardComponent({
-    card,
-    handleCardDelete,
-    handleCardLike,
-    handleCardEdit,
-}) {
+export default function CardComponent({ card, onDelete, onLike }) {
+    const navigate = useNavigate();
+
     return (
-        <Card
-            sx={{ width: 250, m: 2, display: "flex", flexDirection: "column" }}
-        >
-            <CardActionArea>
+        <Card sx={{ minWidth: 280 }}>
+            <CardActionArea
+                onClick={() => navigate(`${ROUTES.CARD_INFO}/${card._id}`)}
+            >
                 <CardHeaderComponent
-                    image={card.image.url}
+                    url={card.image.url}
                     alt={card.image.alt}
                     title={card.title}
                     subtitle={card.subtitle}
                 />
-
                 <CardBody
                     phone={card.phone}
                     address={card.address}
@@ -32,9 +30,11 @@ export default function CardComponent({
                 />
             </CardActionArea>
             <CardActionBar
-                handleCardDelete={handleCardDelete}
-                handleCardLike={handleCardLike}
-                handleCardEdit={handleCardEdit}
+                onDelete={onDelete}
+                cardId={card._id}
+                cardUserId={card.user_id}
+                cardLikes={card.likes}
+                onLike={onLike}
             />
         </Card>
     );
@@ -42,7 +42,7 @@ export default function CardComponent({
 
 CardComponent.propTypes = {
     card: cardType.isRequired,
-    handleCardDelete: PropTypes.func.isRequired,
-    handleCardLike: PropTypes.func.isRequired,
-    handleCardEdit: PropTypes.func.isRequired,
+    onDelete: func.isRequired,
 };
+
+memo(CardComponent);
