@@ -23,8 +23,5 @@ export default function CreateCardPage() {
             </>
         );
 
-    //! not finished this page
-    //TODO: page 384 in react presentation
-
     return <></>;
 }

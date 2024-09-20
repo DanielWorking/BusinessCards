@@ -52,7 +52,6 @@ export default function LoginForm({
                 <Grid2 size={{ xs: 12 }}>
                     <Button
                         variant="outlined"
-                        // component="link"
                         href={ROUTES.SIGNUP}
                         startIcon={<AccountBoxIcon />}
                         sx={{ width: "100%" }}

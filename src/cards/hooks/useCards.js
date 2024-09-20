@@ -136,7 +136,6 @@ const useCards = () => {
         try {
             const card = await changeLikeStatus(cardId);
             requestStatus(false, null, cards, card);
-            // requestStatus(false, null, null, card);
         } catch (error) {
             requestStatus(false, error, null);
         }

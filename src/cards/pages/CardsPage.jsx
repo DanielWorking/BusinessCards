@@ -13,7 +13,6 @@ export default function CardsPage() {
         handleGetCards();
     }, []);
 
-    // dont know why here
     useEffect(() => {}, [filteredCards]);
 
     const onDeleteCard = async (cardId) => {
