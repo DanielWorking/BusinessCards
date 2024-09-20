@@ -1,33 +1,24 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import ROUTES from "../../routes/routesModel";
-import { useUser } from "../providers/UserProvider";
-import useForm from "../../forms/hooks/useForm";
-import initialSignupForm from "../helpers/initialForms/initialSignupForm";
-import signupSchema from "../models/signupSchema";
+import ROUTES from "../../routes/routesModel.js";
 import { Container } from "@mui/material";
+import useForm from "../../forms/hooks/useForm";
+import useUsers from "../hooks/useUsers.js";
+import initialSignupForm from "../helpers/initialForms/initialSignupForm.js";
+import { useUser } from "../providers/UserProvider";
+import signupSchema from "../models/signupSchema.js";
 import SignupForm from "../components/SignupForm";
 
-const handleSignup = (userDetails) => {
-    console.log(userDetails);
-};
-
-//! not visable to visitor
 export default function SignupPage() {
-    const {
-        data,
-        errors,
-        handleChange,
-        handleReset,
-        validateForm,
-        onSubmit,
-        handleChangeCheckBox,
-    } = useForm(initialSignupForm, signupSchema, handleSignup);
+    const { handleSignup } = useUsers();
+    const { value, ...rest } = useForm(
+        initialSignupForm,
+        signupSchema,
+        handleSignup
+    );
 
     const { user } = useUser();
-
-    if (user) return <Navigate to={ROUTES.ROOT} replace />;
-
+    if (user) return <Navigate replace to={ROUTES.CARDS} />;
     return (
         <Container
             sx={{
@@ -38,14 +29,14 @@ export default function SignupPage() {
             }}
         >
             <SignupForm
-                onSubmit={onSubmit}
-                onReset={handleReset}
-                validateForm={validateForm}
+                onSubmit={rest.onSubmit}
+                onReset={rest.handleReset}
+                validateForm={rest.validateForm}
                 title={"register form"}
-                errors={errors}
-                data={data}
-                onInputChange={handleChange}
-                handleChangeCheckBox={handleChangeCheckBox}
+                errors={value.errors}
+                data={value.data}
+                onInputChange={rest.handleChange}
+                handleChangeCheckBox={rest.handleChangeCheckBox}
             />
         </Container>
     );

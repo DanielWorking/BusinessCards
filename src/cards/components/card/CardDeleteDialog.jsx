@@ -23,7 +23,7 @@ export default function CardDeleteDialog({
                 aria-describedby="alert-dialog-desciption"
                 maxWidth="xs"
             >
-                <DialogTitle id="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">
                     {"Are you sure you want to delete this card?"}
                 </DialogTitle>
                 <DialogContent>

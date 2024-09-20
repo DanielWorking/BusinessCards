@@ -1,5 +1,5 @@
 import React, { useContext, useState, createContext, useCallback } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { node } from "prop-types";
 
 const ThemeContext = createContext();

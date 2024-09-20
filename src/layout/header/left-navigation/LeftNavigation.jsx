@@ -15,10 +15,14 @@ export default function LeftNavigation() {
                 <Logo />
                 <Box sx={{ display: { xs: "none", md: "inline-flex" } }}>
                     <NavItem label="About" to={ROUTES.ABOUT} />
+                    {user && (
+                        <>
+                            <NavItem label="Fav Cards" to={ROUTES.FAV_CARDS} />
+                        </>
+                    )}
                     {user && user.isBusiness && (
                         <>
                             <NavItem label="My Cards" to={ROUTES.MY_CARDS} />
-                            <NavItem label="Fav Cards" TO={ROUTES.FAV_CARDS} />
                         </>
                     )}
                     {user && user.isAdmin && (

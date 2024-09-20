@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Container } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import CardsFeedback from "../components/CardsFeedback";
@@ -10,15 +10,11 @@ export default function CardsPage() {
     const { isLoading, error, filteredCards } = value;
 
     useEffect(() => {
-        console.log("Fetching cards..."); // Log before fetching
-        handleGetCards().then(() => {
-            console.log("Cards fetched and state updated"); // Log after fetching
-        });
+        handleGetCards();
     }, []);
 
-    useEffect(() => {
-        console.log("Filtered cards: ", filteredCards); // Log filteredCards to see the data
-    }, [filteredCards]);
+    // dont know why here
+    useEffect(() => {}, [filteredCards]);
 
     const onDeleteCard = async (cardId) => {
         await handleDeleteCard(cardId);
@@ -27,7 +23,6 @@ export default function CardsPage() {
 
     const onLikeCard = async (cardId) => {
         await handleLikeCard(cardId);
-        await handleGetCards();
     };
 
     return (

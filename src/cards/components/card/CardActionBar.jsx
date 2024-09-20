@@ -9,7 +9,6 @@ import CardDeleteDialog from "./CardDeleteDialog";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../../routes/routesModel.js";
 import { useUser } from "../../../users/providers/UserProvider.jsx";
-import useCards from "../../hooks/useCards.js";
 
 export default function CardActionBar({
     onDelete,
@@ -20,14 +19,10 @@ export default function CardActionBar({
 }) {
     const navigate = useNavigate();
     const { user } = useUser();
-
-    const { handleLikeCard } = useCards();
-
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    // const [isLike, setIsLike] = useState(
-    //     //*the origin of the problems
-    //     () => !!cardLikes.find((id) => id === user._id)
-    // );
+    const [isLike, setIsLike] = useState(
+        () => !!cardLikes.find((id) => id === user._id)
+    );
 
     const handleDialog = (term) => {
         if (term === "open") return setIsDialogOpen(true);
@@ -40,9 +35,8 @@ export default function CardActionBar({
     };
 
     const handleLike = async () => {
-        setIsLike((prev) => !prev);
-        await handleLikeCard(cardId);
-        onLike();
+        setIsLike((prev) => !prev); // Toggle like state
+        await onLike(cardId); // Call onLike prop to update the state
     };
 
     return (

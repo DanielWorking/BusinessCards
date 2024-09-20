@@ -1,30 +1,26 @@
-import React, { useEffect } from "react";
-import { Link, Navigate } from "react-router-dom";
-import ROUTES from "../../routes/routesModel";
-import { useUser } from "../providers/UserProvider";
-import useForm from "../../forms/hooks/useForm";
-import initialLoginForm from "../helpers/initialForms/initialLoginForm";
-import loginSchema from "../models/loginSchema";
-import { Button, Container, Grid2 } from "@mui/material";
-import PageHeader from "../../components/PageHeader";
-import Form from "../../forms/components/Form";
-import Input from "../../forms/components/Input";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import useUsers from "../hooks/useUsers";
-import { useSnackbar } from "../../providers/SnackbarProvider";
+import React from "react";
+import useForm from "../../forms/hooks/useForm.js";
+import initialLoginForm from "../helpers/initialForms/initialLoginForm.js";
+import loginSchema from "../models/loginSchema.js";
+import useUsers from "./../hooks/useUsers.js";
+import { useUser } from "../providers/UserProvider.jsx";
+import { Navigate } from "react-router-dom";
+import ROUTES from "../../routes/routesModel.js";
+import LoginForm from "../components/LoginForm.jsx";
+import { Container } from "@mui/material";
+import PageHeader from "../../components/PageHeader.jsx";
 
-//! not visable to visitor
 export default function LoginPage() {
-    const { isLoading, error, handleLogin } = useUsers();
-
-    const { data, errors, handleChange, handleReset, validateForm, onSubmit } =
-        useForm(initialLoginForm, loginSchema, handleLogin);
-
     const { user } = useUser();
+    const { handleLogin } = useUsers();
 
-    if (user) return <Navigate to={ROUTES.ROOT} replace />;
+    const { value, ...rest } = useForm(
+        initialLoginForm,
+        loginSchema,
+        handleLogin
+    );
+
+    if (user) return <Navigate replace to={ROUTES.CARDS} />;
 
     return (
         <Container>
@@ -32,51 +28,15 @@ export default function LoginPage() {
                 title="Welcome to Login page"
                 subtitle="here you can log in"
             />
-            <Container
-                sx={{
-                    paddingTop: 8,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <Form
-                    title="login"
-                    styles={{ maxWidth: "450px" }}
-                    to={ROUTES.ROOT}
-                    onSubmit={onSubmit}
-                    onReset={handleReset}
-                    validateForm={validateForm}
-                >
-                    <Input
-                        label="email"
-                        name="email"
-                        type="email"
-                        error={errors.email}
-                        onChange={handleChange}
-                        data={data}
-                    />
-                    <Input
-                        label="password"
-                        name="password"
-                        type="password"
-                        error={errors.password}
-                        onChange={handleChange}
-                        data={data}
-                    />
-                    <Grid2 xs={12}>
-                        <Button
-                            variant="outlined"
-                            component={Link}
-                            to={ROUTES.SIGNUP}
-                            startIcon={<AccountBoxIcon />}
-                            sx={{ width: "100%" }}
-                        >
-                            Sign Up
-                        </Button>
-                    </Grid2>
-                </Form>
-            </Container>
+            <LoginForm
+                onSubmit={rest.onSubmit}
+                onReset={rest.handleReset}
+                validateForm={rest.validateForm}
+                title="login page"
+                errors={value.errors}
+                data={value.data}
+                onInputChange={rest.handleChange}
+            />
         </Container>
     );
 }

@@ -11,7 +11,6 @@ import NavItem from "../../../routes/components/NavItem";
 export default function RightNavigation() {
     const [anchorEl, setAnchorEl] = useState(null);
     const { user } = useUser();
-    const handleCloseMenu = () => setAnchorEl(null);
 
     const { isDark, toggleDarkMode } = useCustomTheme();
 
@@ -28,7 +27,6 @@ export default function RightNavigation() {
                         <NavItem label="login" to={ROUTES.LOGIN} />
                     </Box>
                 )}
-
                 {user && (
                     <Tooltip title="Open settings">
                         <IconButton

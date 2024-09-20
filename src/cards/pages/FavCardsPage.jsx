@@ -7,7 +7,7 @@ import CardsFeedback from "../components/CardsFeedback";
 export default function FavCardsPage() {
     const { value, ...rest } = useCards();
     const { isLoading, error, cards } = value;
-    const { handleDeleteCard, handleGetFavCards } = rest;
+    const { handleDeleteCard, handleGetFavCards, handleLikeCard } = rest;
 
     useEffect(() => {
         handleGetFavCards();
@@ -21,9 +21,13 @@ export default function FavCardsPage() {
         [handleDeleteCard]
     );
 
-    const changeLikeStatus = useCallback(async () => {
-        await handleGetFavCards();
-    }, []);
+    const changeLikeStatus = useCallback(
+        async (cardId) => {
+            await handleLikeCard(cardId);
+            await handleGetFavCards();
+        },
+        [handleLikeCard, handleGetFavCards]
+    );
 
     return (
         <>

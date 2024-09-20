@@ -9,24 +9,15 @@ const useAxios = () => {
 
     useEffect(() => {
         axios.defaults.headers.common["x-auth-token"] = token;
-        console.log("Token set:", token);
         if (snack) {
-            axios.interceptors.request.use(
-                (data) => {
-                    console.log("Request data:", data);
-                    return Promise.resolve(data);
-                },
-                (error) => {
-                    console.log("Request error:", error);
-                    return Promise.reject(error);
-                }
-            );
+            axios.interceptors.request.use((data) => {
+                return Promise.resolve(data);
+            }, null);
 
             axios.interceptors.response.use(null, (error) => {
-                console.error("Error:", error);
-                if (error.response && error.response.status >= 400) {
-                    snack("error", error.message);
-                }
+                const expectedError =
+                    error.response && error.response.status >= 400;
+                if (expectedError) snack("error", error.message);
                 return Promise.reject(error);
             });
         }

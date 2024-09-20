@@ -2,6 +2,7 @@ import React from "react";
 import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
 import { FormControlLabel, Checkbox, Grid2 } from "@mui/material";
+import ROUTES from "../../routes/routesModel";
 
 export default function SignupForm({
     onSubmit,
@@ -17,15 +18,18 @@ export default function SignupForm({
         <Form
             onSubmit={onSubmit}
             onReset={onReset}
-            validateForm={validateForm}
+            disabled={validateForm}
             title={title}
             styles={{ maxWidth: "800px" }}
+            to={ROUTES.ROOT}
+            color="inherit"
+            spacing={1}
         >
             <Input
                 name="first"
                 label="first name"
                 error={errors.first}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -33,7 +37,7 @@ export default function SignupForm({
                 name="middle"
                 label="middle name"
                 error={errors.middle}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
                 required={false}
@@ -42,7 +46,7 @@ export default function SignupForm({
                 name="last"
                 label="last name"
                 error={errors.last}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -51,7 +55,7 @@ export default function SignupForm({
                 label="phone"
                 type="phone"
                 error={errors.phone}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -60,7 +64,7 @@ export default function SignupForm({
                 label="email"
                 type="email"
                 error={errors.email}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -69,7 +73,7 @@ export default function SignupForm({
                 label="password"
                 type="password"
                 error={errors.password}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -77,7 +81,7 @@ export default function SignupForm({
                 name="url"
                 label="image url"
                 error={errors.url}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
                 required={false}
@@ -86,7 +90,7 @@ export default function SignupForm({
                 name="alt"
                 label="image alt"
                 error={errors.alt}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
                 required={false}
@@ -95,7 +99,7 @@ export default function SignupForm({
                 name="state"
                 label="state"
                 error={errors.state}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
                 required={false}
@@ -104,7 +108,7 @@ export default function SignupForm({
                 label="country"
                 name="country"
                 error={errors.country}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -112,7 +116,7 @@ export default function SignupForm({
                 name="city"
                 label="city"
                 error={errors.city}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -120,7 +124,7 @@ export default function SignupForm({
                 name="street"
                 label="street"
                 error={errors.street}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -129,7 +133,7 @@ export default function SignupForm({
                 label="house Number"
                 type="number"
                 error={errors.houseNumber}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
             />
@@ -137,10 +141,9 @@ export default function SignupForm({
                 name="zip"
                 label="zip"
                 error={errors.zip}
-                onChange={onInputChange}
+                handleChange={onInputChange}
                 data={data}
                 sm={6}
-                required={false}
             />
             <Grid2>
                 <FormControlLabel

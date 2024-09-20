@@ -9,10 +9,11 @@ import {
 import { useUser } from "../providers/UserProvider.jsx";
 import { useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/routesModel.js";
+import normalizeUser from "../helpers/normalization/normalizeUser.js";
 
-const useUsers = () => {
+export default function useUsers() {
     const [users, setUsers] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(null);
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
@@ -20,8 +21,8 @@ const useUsers = () => {
     useAxios();
 
     const requestStatus = useCallback(
-        (loading, errorMessage, users, user = null) => {
-            setIsLoading(loading);
+        (isLoading, errorMessage, users, user = null) => {
+            setIsLoading(isLoading);
             setUsers(users);
             setUser(user);
             setError(errorMessage);
@@ -32,20 +33,14 @@ const useUsers = () => {
     const handleLogin = useCallback(
         async (user) => {
             try {
-                const token = await login(user); // Get the token from the API
-                if (!token) {
-                    throw new Error("Token not found"); // Ensure the token exists
-                }
-                setTokenInLocalStorage(token); // Store token in local storage
-                setToken(token); // Update the state with the token
-                const userFromLocalStorage = getUser(); // Decode and retrieve user data from the token
-                if (!userFromLocalStorage) {
-                    throw new Error("Failed to decode user from token");
-                }
-                requestStatus(false, null, null, userFromLocalStorage); // Update the user context state
-                navigate(ROUTES.CARDS); // Redirect after successful login
+                const token = await login(user);
+                setTokenInLocalStorage(token);
+                setToken(token);
+                const userFromLocalStorage = setUser(getUser());
+                requestStatus(false, null, null, userFromLocalStorage);
+                navigate(ROUTES.CARDS);
             } catch (error) {
-                requestStatus(false, error.message, null); // Handle login failure
+                requestStatus(false, error, null);
             }
         },
         [navigate, requestStatus]
@@ -59,8 +54,8 @@ const useUsers = () => {
     const handleSignup = useCallback(
         async (user) => {
             try {
-                const normalizeUser = normalizeUser(user);
-                await signup(normalizeUser);
+                const normalizedUser = normalizeUser(user);
+                await signup(normalizedUser);
                 await handleLogin({
                     email: user.email,
                     password: user.password,
@@ -81,6 +76,4 @@ const useUsers = () => {
         handleLogout,
         handleSignup,
     };
-};
-
-export default useUsers;
+}

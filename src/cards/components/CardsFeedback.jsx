@@ -12,8 +12,6 @@ export default function CardsFeedback({
     onDelete,
     onLike = () => {},
 }) {
-    console.log("Cards prop in CardsFeedback:", cards); // Log props at each render
-
     if (isLoading) return <Spinner />;
     if (error) return <Error errorMessage={error} />;
     if (!cards || cards.length === 0)
@@ -24,11 +22,7 @@ export default function CardsFeedback({
                 parameters you entered
             </div>
         );
-
-    // if (cards)
     return <Cards cards={cards} onDelete={onDelete} onLike={onLike} />;
-
-    // return null;
 }
 
 CardsFeedback.propTypes = {

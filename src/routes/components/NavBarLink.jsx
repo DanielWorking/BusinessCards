@@ -15,5 +15,5 @@ export default function NavBarLink({ to, color = "#fff", children }) {
 NavBarLink.propeTypes = {
     children: node.isRequired,
     to: string.isRequired,
-    color: string.isRequired,
+    color: string,
 };

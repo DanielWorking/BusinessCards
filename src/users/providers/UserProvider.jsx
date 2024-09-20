@@ -12,7 +12,7 @@ const UserContext = createContext(null);
 
 export default function UserProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(getToken());
+    const [token, setToken] = useState(getToken);
 
     useEffect(() => {
         if (!user) {

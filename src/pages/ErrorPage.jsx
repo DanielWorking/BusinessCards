@@ -11,7 +11,7 @@ export default function ErrorPage() {
             <Container>
                 <PageHeader title="Error 404" subtitle="Page not found" />
                 <Grid2 container spacing={2}>
-                    <Grid2 xs={12} md={8}>
+                    <Grid2 size={{ xs: 12, md: 8 }}>
                         <Typography variant="h5">
                             Oops... The requested URL was not found on this
                             server
@@ -24,7 +24,7 @@ export default function ErrorPage() {
                             Click here to return tp the page...
                         </Button>
                     </Grid2>
-                    <Grid2 xs={12} md={4} justifyContent="center">
+                    <Grid2 size={{ xs: 12, md: 4 }} justifyContent="center">
                         <img
                             width="100%"
                             src="/assets/images/broken-robot-error.png"

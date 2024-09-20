@@ -30,11 +30,11 @@ function FormButton({
 
 FormButton.propTypes = {
     variant: string.isRequired,
-    component: string.isRequired,
-    size: string.isRequired,
-    color: string.isRequired,
+    component: string,
+    size: string,
+    color: string,
     onClick: func.isRequired,
-    disabled: bool.isRequired,
+    disabled: bool,
     node: node.isRequired,
 };
 

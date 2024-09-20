@@ -1,10 +1,10 @@
 import React from "react";
+import MuiMenu from "@mui/material/Menu";
+import { Box, MenuItem } from "@mui/material";
+import ROUTES from "../routesModel.js";
 import { useUser } from "../../users/providers/UserProvider";
 import useUsers from "../../users/hooks/useUsers";
-import MuiMenu from "@mui/material/Menu";
-import ROUTES from "../routesModel.js";
 import MenuLink from "./MenuLink";
-import { Box } from "@mui/material";
 
 export default function Menu({ isOpen, anchorEl, onClose }) {
     const { user } = useUser();
@@ -14,6 +14,7 @@ export default function Menu({ isOpen, anchorEl, onClose }) {
         handleLogout();
         onClose();
     };
+
     return (
         <>
             <MuiMenu

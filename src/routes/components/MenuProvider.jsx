@@ -6,10 +6,9 @@ import React, {
     createContext,
 } from "react";
 import { node } from "prop-types";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 import Menu from "./Menu";
-import { useMediaQuery } from "@mui/material";
-import { useTheme as useMuiTheme } from "@mui/material/styles";
+import { useTheme as useMuiTheme } from "@emotion/react";
 
 const MenuContext = createContext(null);
 
@@ -28,11 +27,13 @@ export default function MenuProvider({ children }) {
     useEffect(() => {
         setIsOpen(false);
     }, [screenSize]);
+
     return (
         <>
             <MenuContext.Provider value={setIsOpen}>
                 {children}
             </MenuContext.Provider>
+
             <Box
                 ref={anchorRef}
                 component="span"
@@ -44,7 +45,9 @@ export default function MenuProvider({ children }) {
                 <Menu
                     anchorEl={anchorEl}
                     isOpen={isOpen}
-                    onClose={() => setIsOpen(false)}
+                    onClose={() => {
+                        setIsOpen(false);
+                    }}
                 />
             )}
         </>
@@ -53,7 +56,7 @@ export default function MenuProvider({ children }) {
 
 export const useMenu = () => {
     const context = useContext(MenuContext);
-    if (!context) throw new Error("useMenu must be within a MenuProvider");
+    if (!context) throw new Error("useMenu must be used within a MenuProvider");
     return context;
 };
 

@@ -9,7 +9,7 @@ const cardType = shape({
     description: string.isRequired,
     phone: string.isRequired,
     email: string.isRequired,
-    web: string.isRequired,
+    web: string,
     image: imageType.isRequired,
     address: addressType.isRequired,
     bizNumber: number.isRequired,

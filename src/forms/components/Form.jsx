@@ -9,7 +9,7 @@ function Form({
     title = "",
     onSubmit,
     onReset,
-    onChange,
+    disabled,
     to = "/",
     color = "inherit",
     spacing = 1,
@@ -35,7 +35,7 @@ function Form({
                     {children}
                 </Grid2>
                 <Grid2 container spacing={1} my={2} direction="row" width="100">
-                    <Grid2 xs={12} sm={6}>
+                    <Grid2 size={{ xs: 12, sm: 6 }}>
                         <FormButton
                             node="cancel"
                             color="error"
@@ -44,7 +44,7 @@ function Form({
                             onClick={() => navigate(to)}
                         />
                     </Grid2>
-                    <Grid2 xs={12} sm={6}>
+                    <Grid2 size={{ xs: 12, sm: 6 }}>
                         <FormButton
                             node={<LoopIcon />}
                             component="div"
@@ -52,12 +52,12 @@ function Form({
                             onClick={onReset}
                         />
                     </Grid2>
-                    <Grid2 xs={12}>
+                    <Grid2 size={{ xs: 12 }}>
                         <FormButton
-                            node="submit"
+                            node="Submit"
                             variant="outlined"
                             onClick={onSubmit}
-                            disabled={!!onChange()}
+                            disabled={!!disabled()}
                             size="large"
                         />
                     </Grid2>
@@ -74,7 +74,7 @@ Form.propTypes = {
     to: string.isRequired,
     spacing: number.isRequired,
     onReset: func.isRequired,
-    onChange: func.isRequired,
+    disabled: func.isRequired,
     title: string.isRequired,
     styles: object.isRequired,
 };

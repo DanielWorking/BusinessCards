@@ -30,14 +30,13 @@ export default function Footer() {
                             onClick={() => navigateTo(ROUTES.FAV_CARDS)}
                         />
                     )}
-                    {user &&
-                        user.isBusiness(
-                            <BottomNavigationAction
-                                label="My Cards"
-                                icon={<PortraitIcon />}
-                                onClick={() => navigateTo(ROUTES.MY_CARDS)}
-                            />
-                        )}
+                    {user && user.isBusiness && (
+                        <BottomNavigationAction
+                            label="My Cards"
+                            icon={<PortraitIcon />}
+                            onClick={() => navigateTo(ROUTES.MY_CARDS)}
+                        />
+                    )}
                 </BottomNavigation>
             </Paper>
         </>

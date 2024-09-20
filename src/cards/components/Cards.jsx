@@ -15,7 +15,7 @@ export default function Cards({ cards, onDelete, onLike }) {
     return (
         <Grid2 container spacing={2} pb={2}>
             {cards.map((card, i) => (
-                <Grid2 xs={12} sm={6} md={4} lg={3} key={i}>
+                <Grid2 size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={i}>
                     <CardComponent
                         card={card}
                         onDelete={onDelete}

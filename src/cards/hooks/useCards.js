@@ -12,10 +12,11 @@ import useAxios from "../../hooks/useAxios";
 import { useSnackbar } from "../../providers/SnackbarProvider";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ROUTES from "../../routes/routesModel.js";
-import { useUser } from "../../users/providers/UserProvider.jsx";
+import { useUser } from "../../users/providers/UserProvider";
 
 const useCards = () => {
     const { user } = useUser();
+
     const navigate = useNavigate();
     const [cards, setCards] = useState(null);
     const [card, setCard] = useState(null);
@@ -33,7 +34,6 @@ const useCards = () => {
 
     useEffect(() => {
         if (cards) {
-            console.log("Cards in useEffect:", cards); // Log the cards state
             setFilteredCards(
                 cards.filter(
                     (card) =>
@@ -42,7 +42,6 @@ const useCards = () => {
                 )
             );
         }
-        console.log("Filtered cards:", filteredCards); // Log filteredCards
     }, [cards, query]);
 
     const requestStatus = (loading, errorMessage, cards, card = null) => {
@@ -56,7 +55,6 @@ const useCards = () => {
         try {
             setIsLoading(true);
             const fetchedCards = await getCards();
-            console.log("Fetched cards:", fetchedCards); // Log fetched cards
             setCards(fetchedCards);
             requestStatus(false, null, fetchedCards);
         } catch (error) {
@@ -127,6 +125,7 @@ const useCards = () => {
         try {
             setIsLoading(true);
             await deleteCard(cardId);
+            requestStatus(false, null, null, card);
             snack("success", "The business card has been successfully deleted");
         } catch (error) {
             requestStatus(false, error, null);
@@ -137,6 +136,7 @@ const useCards = () => {
         try {
             const card = await changeLikeStatus(cardId);
             requestStatus(false, null, cards, card);
+            // requestStatus(false, null, null, card);
         } catch (error) {
             requestStatus(false, error, null);
         }
@@ -145,7 +145,7 @@ const useCards = () => {
     const handleGetFavCards = useCallback(async () => {
         try {
             setIsLoading(true);
-            const cards = await handleGetCards();
+            const cards = await getCards();
             const favCards = cards.filter(
                 (card) => !!card.likes.find((id) => id === user._id)
             );

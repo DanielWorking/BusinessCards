@@ -1,5 +1,5 @@
-import { Box, Container, ListItem, Typography } from "@mui/material";
 import React from "react";
+import { Container, ListItem, Typography } from "@mui/material";
 import PageHeader from "../components/PageHeader";
 
 export default function AboutPage() {

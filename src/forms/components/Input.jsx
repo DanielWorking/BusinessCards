@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { string, bool, object, func } from "prop-types";
 import { TextField, Grid2 } from "@mui/material";
-import { makeFirstLetterCapital } from "../utils/algoMethods";
+import { makeFirstLetterCapital } from "../utils/algoMethods.js";
 
-export default function Input({
+function Input({
     variant = "outlined",
     type = "text",
     name,
@@ -16,10 +16,10 @@ export default function Input({
 }) {
     return (
         <>
-            <Grid2 xs={12} {...rest}>
+            <Grid2 size={{ xs: 12, ...rest }}>
                 <TextField
                     variant={variant}
-                    label={makeFirstLetterCapital}
+                    label={makeFirstLetterCapital(label)}
                     type={type}
                     id={name}
                     name={name}
@@ -38,10 +38,12 @@ export default function Input({
 
 Input.propTypes = {
     name: string.isRequired,
-    required: bool.isRequired,
-    type: string.isRequired,
-    error: string.isRequired,
+    required: bool,
+    type: string,
+    error: string,
     handleChange: func.isRequired,
-    variant: string.isRequired,
+    variant: string,
     data: object,
 };
+
+export default memo(Input);

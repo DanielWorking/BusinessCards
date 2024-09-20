@@ -33,6 +33,7 @@ const useForm = (initialForm, schema, handleSubmit) => {
                     delete obj[name];
                     return obj;
                 });
+            setData((prev) => ({ ...prev, [name]: value }));
         },
         [validateProperty]
     );
