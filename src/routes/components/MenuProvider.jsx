@@ -30,7 +30,7 @@ export default function MenuProvider({ children }) {
 
     return (
         <>
-            <MenuContext.Provider value={setIsOpen}>
+            <MenuContext.Provider value={isOpen}>
                 {children}
             </MenuContext.Provider>
 

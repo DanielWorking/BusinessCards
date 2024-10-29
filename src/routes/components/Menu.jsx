@@ -16,59 +16,47 @@ export default function Menu({ isOpen, anchorEl, onClose }) {
     };
 
     return (
-        <>
-            <MuiMenu
-                open={isOpen}
-                onClose={onClose}
-                anchorEl={anchorEl}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                keepMounted
-                transformOrigin={{ vertical: "top", horizontal: "right" }}
-            >
-                <Box>
-                    <MenuLink
-                        text="about"
-                        navigateTo={ROUTES.ABOUT}
-                        onClick={onClose}
-                        styles={{ display: { xs: "block", md: "none" } }}
-                    />
-                    {!user && (
-                        <>
-                            <MenuLink
-                                text="login"
-                                navigateTo={ROUTES.LOGIN}
-                                onClick={onClose}
-                                styles={{
-                                    display: { xs: "block", md: "none" },
-                                }}
-                            />
-                            <MenuLink
-                                text="signup"
-                                navigateTo={ROUTES.SIGNUP}
-                                onClick={onClose}
-                                styles={{
-                                    display: { xs: "block", md: "none" },
-                                }}
-                            />
-                        </>
-                    )}
-                    {user && (
-                        <>
-                            <MenuLink
-                                text="profile"
-                                navigateTo={ROUTES.USER_PROFILE}
-                                onClick={onClose}
-                            />
-                            <MenuLink
-                                text="edit account"
-                                navigateTo={ROUTES.EDIT_USER}
-                                onClick={onClose}
-                            />
-                            <MenuItem onClick={onLogout}>Logout</MenuItem>
-                        </>
-                    )}
-                </Box>
-            </MuiMenu>
-        </>
+        <MuiMenu
+            open={isOpen}
+            onClose={onClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            keepMounted
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+            <Box>
+                {!user && (
+                    <>
+                        <MenuLink
+                            text="login"
+                            navigateTo={ROUTES.LOGIN}
+                            onClick={onClose}
+                        />
+                        <MenuLink
+                            text="signup"
+                            navigateTo={ROUTES.SIGNUP}
+                            onClick={onClose}
+                        />
+                    </>
+                )}
+                {user && (
+                    <>
+                        <MenuLink
+                            text="profile"
+                            navigateTo={ROUTES.USER_PROFILE}
+                            onClick={onClose}
+                            styles={{ color: "#000" }}
+                        />
+                        <MenuLink
+                            text="edit account"
+                            navigateTo={ROUTES.EDIT_USER}
+                            onClick={onClose}
+                            styles={{ color: "#000" }}
+                        />
+                        <MenuItem onClick={onLogout}>Logout</MenuItem>
+                    </>
+                )}
+            </Box>
+        </MuiMenu>
     );
 }

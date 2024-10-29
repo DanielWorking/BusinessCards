@@ -1,16 +1,15 @@
 import React, { memo } from "react";
-import { arrayOf, bool, string, func } from "prop-types";
+import { arrayOf, bool, string, func, object } from "prop-types";
 import Spinner from "../../components/Spinner";
 import Error from "../../components/Error";
 import Cards from "./Cards";
-import cardType from "../models/types/cardType";
 
 export default function CardsFeedback({
     isLoading,
     error,
     cards,
     onDelete,
-    onLike = () => {},
+    onLike,
 }) {
     if (isLoading) return <Spinner />;
     if (error) return <Error errorMessage={error} />;
@@ -22,13 +21,15 @@ export default function CardsFeedback({
                 parameters you entered
             </div>
         );
-    return <Cards cards={cards} onDelete={onDelete} onLike={onLike} />;
+    if (cards)
+        return <Cards cards={cards} onDelete={onDelete} onLike={onLike} />;
+    return null;
 }
 
 CardsFeedback.propTypes = {
     isLoading: bool.isRequired,
     error: string,
-    cards: arrayOf(cardType),
+    cards: arrayOf(object),
     onDelete: func.isRequired,
     onLike: func.isRequired,
 };

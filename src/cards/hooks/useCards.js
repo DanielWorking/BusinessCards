@@ -48,6 +48,7 @@ const useCards = () => {
         setIsLoading(loading);
         setCards(cards);
         setCard(card);
+        // setError(errorMessage.message);
         setError(errorMessage);
     };
 
@@ -58,7 +59,7 @@ const useCards = () => {
             setCards(fetchedCards);
             requestStatus(false, null, fetchedCards);
         } catch (error) {
-            requestStatus(false, error, null);
+            requestStatus(false, error.message, null);
         }
     };
 
@@ -69,7 +70,7 @@ const useCards = () => {
             requestStatus(false, null, null, card);
             return card;
         } catch (error) {
-            requestStatus(false, error, null);
+            requestStatus(false, error.message, null);
         }
     }, []);
 
@@ -79,7 +80,7 @@ const useCards = () => {
             const cards = await getMyCards();
             requestStatus(false, null, cards);
         } catch (error) {
-            requestStatus(false, error, null);
+            requestStatus(false, error.message, null);
         }
     }, [user]);
 
@@ -97,7 +98,7 @@ const useCards = () => {
                 );
                 navigate(ROUTES.MY_CARDS);
             } catch (error) {
-                requestStatus(false, error, null);
+                requestStatus(false, error.message, null);
             }
         },
         [snack]
@@ -115,7 +116,7 @@ const useCards = () => {
                 );
                 navigate(ROUTES.MY_CARDS);
             } catch (error) {
-                requestStatus(false, error, null);
+                requestStatus(false, error.message, null);
             }
         },
         [snack]
@@ -128,7 +129,7 @@ const useCards = () => {
             requestStatus(false, null, null, card);
             snack("success", "The business card has been successfully deleted");
         } catch (error) {
-            requestStatus(false, error, null);
+            requestStatus(false, error.message, null);
         }
     }, []);
 
@@ -137,7 +138,7 @@ const useCards = () => {
             const card = await changeLikeStatus(cardId);
             requestStatus(false, null, cards, card);
         } catch (error) {
-            requestStatus(false, error, null);
+            requestStatus(false, error.message, null);
         }
     }, []);
 
@@ -150,7 +151,7 @@ const useCards = () => {
             );
             requestStatus(false, null, favCards);
         } catch (error) {
-            requestStatus(false, error, null);
+            requestStatus(false, error.message, null);
         }
     }, [user]);
 

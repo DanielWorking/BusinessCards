@@ -20,9 +20,12 @@ export default function CardActionBar({
     const navigate = useNavigate();
     const { user } = useUser();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [isLike, setIsLike] = useState(
-        () => !!cardLikes.find((id) => id === user._id)
-    );
+    const [isLike, setIsLike] = useState(() => {
+        if (user) {
+            return !!cardLikes.find((id) => id === user._id);
+        }
+        return false;
+    });
 
     const handleDialog = (term) => {
         if (term === "open") return setIsDialogOpen(true);
@@ -35,8 +38,8 @@ export default function CardActionBar({
     };
 
     const handleLike = async () => {
-        setIsLike((prev) => !prev); // Toggle like state
-        await onLike(cardId); // Call onLike prop to update the state
+        setIsLike((prev) => !prev);
+        await onLike(cardId);
     };
 
     return (

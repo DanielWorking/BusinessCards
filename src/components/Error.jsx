@@ -9,7 +9,7 @@ export default function Error({ errorMessage }) {
                 <Grid2 container spacing={2}>
                     <Grid2 size={{ xs: 12, md: 8 }}>
                         <Typography variant="h5" color="initial">
-                            Oops... something wen wrong: {errorMessage}
+                            Oops... something went wrong: {errorMessage}
                         </Typography>
                     </Grid2>
                     <Grid2 size={{ xs: 12, md: 4 }} justifyContent="center">

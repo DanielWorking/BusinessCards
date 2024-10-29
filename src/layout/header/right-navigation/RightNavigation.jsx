@@ -7,12 +7,22 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import SearchBar from "./SearchBar";
 import ROUTES from "../../../routes/routesModel.js";
 import NavItem from "../../../routes/components/NavItem";
+import Menu from "../../../routes/components/Menu";
 
 export default function RightNavigation() {
     const [anchorEl, setAnchorEl] = useState(null);
     const { user } = useUser();
-
     const { isDark, toggleDarkMode } = useCustomTheme();
+
+    const handleMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const isMenuOpen = Boolean(anchorEl);
 
     return (
         <>
@@ -35,7 +45,7 @@ export default function RightNavigation() {
                                 display: "inline-flex",
                                 marginRight: 2,
                             }}
-                            onClick={(e) => setAnchorEl(e.target)}
+                            onClick={handleMenuOpen}
                         >
                             <Avatar
                                 alt="Bird"
@@ -45,6 +55,12 @@ export default function RightNavigation() {
                     </Tooltip>
                 )}
             </Box>
+
+            <Menu
+                isOpen={isMenuOpen}
+                anchorEl={anchorEl}
+                onClose={handleMenuClose}
+            />
         </>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import CardsFeedback from "../components/CardsFeedback";
@@ -12,8 +12,6 @@ export default function CardsPage() {
     useEffect(() => {
         handleGetCards();
     }, []);
-
-    useEffect(() => {}, [filteredCards]);
 
     const onDeleteCard = async (cardId) => {
         await handleDeleteCard(cardId);

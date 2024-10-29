@@ -36,8 +36,8 @@ export default function useUsers() {
                 const token = await login(user);
                 setTokenInLocalStorage(token);
                 setToken(token);
-                const userFromLocalStorage = setUser(getUser());
-                requestStatus(false, null, null, userFromLocalStorage);
+                setUser(getUser());
+                requestStatus(false, null, null, user);
                 navigate(ROUTES.CARDS);
             } catch (error) {
                 requestStatus(false, error, null);
@@ -49,6 +49,7 @@ export default function useUsers() {
     const handleLogout = useCallback(() => {
         removeToken();
         setUser(null);
+        navigate(ROUTES.CARDS);
     }, [setUser]);
 
     const handleSignup = useCallback(

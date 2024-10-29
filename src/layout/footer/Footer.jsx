@@ -11,6 +11,7 @@ export default function Footer() {
     const { user } = useUser();
     const navigate = useNavigate();
     const navigateTo = (to) => navigate(to);
+
     return (
         <>
             <Paper
