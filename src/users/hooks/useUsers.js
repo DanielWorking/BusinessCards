@@ -47,9 +47,13 @@ export default function useUsers() {
     );
 
     const handleLogout = useCallback(() => {
-        removeToken();
-        setUser(null);
-        navigate(ROUTES.CARDS);
+        try {
+            removeToken();
+            requestStatus(false, null, null);
+            navigate(ROUTES.CARDS);
+        } catch (error) {
+            requestStatus(false, error, null);
+        }
     }, [setUser]);
 
     const handleSignup = useCallback(

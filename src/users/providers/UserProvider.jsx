@@ -15,11 +15,11 @@ export default function UserProvider({ children }) {
     const [token, setToken] = useState(getToken);
 
     useEffect(() => {
-        if (!user) {
+        if (token) {
             const userFromLocalStorage = getUser();
             setUser(userFromLocalStorage);
         }
-    }, [user]);
+    }, [token]);
 
     const value = useMemo(
         () => ({ user, setUser, token, setToken }),

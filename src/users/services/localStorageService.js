@@ -23,7 +23,7 @@ export const getUser = () => {
         if (!myToken) {
             return null;
         }
-        return jwtDecode(myToken);
+        return jwtDecode(myToken); //* decodedToken isBusiness, isAdmin etc...
     } catch (error) {
         console.error("Invalid token", error);
         return null;
