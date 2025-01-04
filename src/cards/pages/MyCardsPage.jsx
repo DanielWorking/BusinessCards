@@ -9,7 +9,8 @@ import ROUTES from "../../routes/routesModel.js";
 import CardsFeedback from "../components/CardsFeedback";
 
 export default function MyCardsPage() {
-    const { value, handleGetMyCards, handleDeleteCard } = useCards();
+    const { value, handleGetMyCards, handleDeleteCard, handleLikeCard } =
+        useCards();
     const { isLoading, error, cards } = value;
     const { user } = useUser();
     const navigate = useNavigate();
@@ -22,6 +23,10 @@ export default function MyCardsPage() {
     const onDeleteCard = async (cardId) => {
         await handleDeleteCard(cardId);
         await handleGetMyCards();
+    };
+
+    const onLikeCard = async (cardId) => {
+        await handleLikeCard(cardId);
     };
 
     return (
@@ -46,6 +51,7 @@ export default function MyCardsPage() {
                     error={error}
                     cards={cards}
                     onDelete={onDeleteCard}
+                    onLike={onLikeCard}
                 />
             </Container>
         </>

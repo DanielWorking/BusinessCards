@@ -13,6 +13,7 @@ import { useSnackbar } from "../../providers/SnackbarProvider";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ROUTES from "../../routes/routesModel.js";
 import { useUser } from "../../users/providers/UserProvider";
+import normalizeCard from "../helpers/normalization/normalizeCard.js";
 
 const useCards = () => {
     const { user } = useUser();
@@ -48,7 +49,6 @@ const useCards = () => {
         setIsLoading(loading);
         setCards(cards);
         setCard(card);
-        // setError(errorMessage.message);
         setError(errorMessage);
     };
 
@@ -89,8 +89,10 @@ const useCards = () => {
     const handleCreateCard = useCallback(
         async (cardFromClient) => {
             try {
+                const normalizedCard = normalizeCard(cardFromClient);
+                console.log("Normalized Data:", normalizedCard);
                 setIsLoading(false);
-                const card = await createCard(cardFromClient);
+                const card = await createCard(normalizedCard);
                 requestStatus(false, null, null, card);
                 snack(
                     "success",
@@ -98,6 +100,7 @@ const useCards = () => {
                 );
                 navigate(ROUTES.MY_CARDS);
             } catch (error) {
+                console.error("Error creating card:", error.message);
                 requestStatus(false, error.message, null);
             }
         },

@@ -6,10 +6,11 @@ import ErrorPage from "../pages/ErrorPage";
 import ROUTES from "./routesModel.js";
 import SignupPage from "../users/pages/SignupPage";
 import CardDetailsPage from "../cards/pages/CardDetailsPage";
-import CreateCardPage from "../cards/pages/CreateCardPage.jsx";
-import EditCardPage from "../cards/pages/EditCardPage.jsx";
+import CreateCardPage from "../cards/pages/CreateCardPage";
+import EditCardPage from "../cards/pages/EditCardPage";
 import LoginPage from "../users/pages/LoginPage";
-import FavCardsPage from "../cards/pages/FavCardsPage.jsx";
+import FavCardsPage from "../cards/pages/FavCardsPage";
+import MyCardsPage from "../cards/pages/MyCardsPage";
 
 export default function Router() {
     return (
@@ -29,6 +30,7 @@ export default function Router() {
             <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
             <Route path={ROUTES.LOGIN} element={<LoginPage />} />
             <Route path={ROUTES.FAV_CARDS} element={<FavCardsPage />} />
+            <Route path={ROUTES.MY_CARDS} element={<MyCardsPage />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
     );
