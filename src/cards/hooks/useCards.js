@@ -90,7 +90,6 @@ const useCards = () => {
         async (cardFromClient) => {
             try {
                 const normalizedCard = normalizeCard(cardFromClient);
-                console.log("Normalized Data:", normalizedCard);
                 setIsLoading(false);
                 const card = await createCard(normalizedCard);
                 requestStatus(false, null, null, card);

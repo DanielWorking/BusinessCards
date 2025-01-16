@@ -13,18 +13,18 @@ import mapCardToModel from "../helpers/normalization/mapCardToModel.js";
 import normalizeCard from "../helpers/normalization/normalizeCard.js";
 
 export default function EditCardPage() {
-    const { handleUpdateCard, handleGetCard, card } = useCards();
-
+    const { handleGetCard, handleUpdateCard, value } = useCards();
+    const { card } = value;
     const { user } = useUser();
     const { id } = useParams();
     const navigate = useNavigate();
-    const { value, ...rest } = useForm(initialCardForm, cardSchema, () =>
+    const { ...rest } = useForm(initialCardForm, cardSchema, () => {
         handleUpdateCard(card._id, {
-            ...normalizeCard({ ...value.data }),
+            ...normalizeCard({ ...rest.value.data }),
             bizNumber: card.bizNumber,
             user_id: card.user_id,
-        })
-    );
+        });
+    });
 
     useEffect(() => {
         handleGetCard(id).then((data) => {
@@ -49,18 +49,128 @@ export default function EditCardPage() {
                 <Form
                     onSubmit={rest.onSubmit}
                     onReset={rest.handleReset}
-                    onChange={rest.validateForm}
+                    handleChange={rest.handleChange}
                     styles={{ maxWidth: "800px" }}
                     to={ROUTES.CARDS}
                     title="Edit card"
+                    color="inherit"
+                    spacing={1}
+                    disabled={rest.validateForm}
                 >
                     <Input
                         name="title"
                         label="title"
-                        error={value.errors.title}
-                        onChange={rest.handleChange}
-                        data={value.data}
+                        error={rest.value.errors.title}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
                         sm={6}
+                    />
+                    <Input
+                        name="subtitle"
+                        label="subtitle"
+                        error={rest.value.errors.subtitle}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="description"
+                        label="description"
+                        error={rest.value.errors.description}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="phone"
+                        label="phone"
+                        error={rest.value.errors.phone}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="email"
+                        label="email"
+                        error={rest.value.errors.email}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="webUrl"
+                        label="Web"
+                        error={rest.value.errors.Web}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                        required={false}
+                    />
+                    <Input
+                        name="imageUrl"
+                        label="Image URL"
+                        error={rest.value.errors.url}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="imageAlt"
+                        label="imag eAlt"
+                        error={rest.value.errors.alt}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="state"
+                        label="state"
+                        error={rest.value.errors.state}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                        required={false}
+                    />
+                    <Input
+                        name="country"
+                        label="country"
+                        error={rest.value.errors.country}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="city"
+                        label="city"
+                        error={rest.value.errors.city}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="street"
+                        label="street"
+                        error={rest.value.errors.street}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="houseNumber"
+                        label="House Number"
+                        error={rest.value.errors.houseNumber}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                    />
+                    <Input
+                        name="zip"
+                        label="zip"
+                        error={rest.value.errors.zip}
+                        handleChange={rest.handleChange}
+                        data={rest.value.data}
+                        sm={6}
+                        required={false}
                     />
                 </Form>
             </Container>
